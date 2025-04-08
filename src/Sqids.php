@@ -8,6 +8,9 @@ use Sqids\Sqids as BaseSqids;
 
 class Sqids extends BaseSqids
 {
+    /**
+     * @param  string[]  $blocklist
+     */
     public function __construct(string $alphabet = self::DEFAULT_ALPHABET, int $minLength = self::DEFAULT_MIN_LENGTH, array $blocklist = self::DEFAULT_BLOCKLIST)
     {
         parent::__construct($alphabet, $minLength, $blocklist);
