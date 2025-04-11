@@ -26,13 +26,13 @@ return [
     'min_length' => env('SQIDS_MIN_LENGTH', 10),
 
     /**
-     * Due to the design of the Sqids algorithm, multiple IDs can decode into
-     * the same sequence of numbers. When enabled, IDs are validated after
-     * decoding to ensure they are canonical.
+     * By default, the Sqids library does not validate decoded IDs. When enabled,
+     * this toggle ensures that IDs are validated after decoding to confirm
+     * they are both valid and canonical.
      *
      * @see https://sqids.org/faq#valid-ids
      */
-    'canonical_ids' => env('SQIDS_CANONICAL_IDS', true),
+    'validate_ids' => env('SQIDS_VALIDATE_IDS', true),
 
     /**
      * Provide a list of words that should not appear in generated Sqids.

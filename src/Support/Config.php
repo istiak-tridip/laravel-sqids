@@ -31,10 +31,10 @@ class Config
         );
     }
 
-    public static function canonicalIds(): bool
+    public static function validateIds(): bool
     {
         return config()->boolean(
-            key: 'sqids.canonical_ids',
+            key: 'sqids.validate_ids',
             default: true
         );
     }

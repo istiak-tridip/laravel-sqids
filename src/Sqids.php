@@ -18,7 +18,7 @@ class Sqids
      */
     protected array $blocklist;
 
-    protected bool $canonicalIds;
+    protected bool $validateIds;
 
     protected CustomSqids $sqids;
 
@@ -26,7 +26,7 @@ class Sqids
     {
         $this->minLength = Config::minLength();
         $this->blocklist = Config::blockList();
-        $this->canonicalIds = Config::canonicalIds();
+        $this->validateIds = Config::validateIds();
         $this->alphabet = app(Config::class)->shuffledAlphabet($seed);
     }
 
