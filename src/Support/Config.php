@@ -59,6 +59,11 @@ class Config
         );
     }
 
+    public static function generateNumericIds(bool $condition = true): void
+    {
+        $condition && config()->set('sqids.alphabet', '0123456789');
+    }
+
     public function shuffledAlphabet(?string $seed = null): string
     {
         $seedHash = hash('sha256', ($seed ?? '').self::shuffleSeed());
