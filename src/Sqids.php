@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Istiak\Sqids;
 
+use Istiak\Sqids\Support\Config;
 use Sqids\Sqids as BaseSqids;
 
 class Sqids extends BaseSqids
@@ -21,5 +22,14 @@ class Sqids extends BaseSqids
          * we override the default behavior and skip the re-shuffling.
          */
         $this->alphabet = $alphabet;
+    }
+
+    public static function createFromConfig(?string $seed = null): self
+    {
+        return new self(
+            alphabet: app(Config::class)->shuffledAlphabet($seed),
+            minLength: app(Config::class)->minLength(),
+            blocklist: app(Config::class)->blockList(),
+        );
     }
 }
