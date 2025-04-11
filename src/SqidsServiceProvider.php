@@ -11,9 +11,8 @@ class SqidsServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->app->singleton(Sqids::class, fn () => new Sqids);
         $this->app->singleton(Config::class, fn () => new Config);
-
-        $this->app->singleton(Sqids::class, fn () => Sqids::createFromConfig());
 
         $this->mergeConfigFrom(__DIR__.'/../config/sqids.php', key: 'sqids');
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Istiak\Sqids\Sqids;
+use Sqids\Sqids;
 
 return [
     /**

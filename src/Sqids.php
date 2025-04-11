@@ -5,31 +5,37 @@ declare(strict_types=1);
 namespace Istiak\Sqids;
 
 use Istiak\Sqids\Support\Config;
-use Sqids\Sqids as BaseSqids;
+use Istiak\Sqids\Support\CustomSqids;
 
-class Sqids extends BaseSqids
+class Sqids
 {
-    /**
-     * @param  string[]  $blocklist
-     */
-    public function __construct(string $alphabet = self::DEFAULT_ALPHABET, int $minLength = self::DEFAULT_MIN_LENGTH, array $blocklist = self::DEFAULT_BLOCKLIST)
-    {
-        parent::__construct($alphabet, $minLength, $blocklist);
+    protected string $alphabet;
 
-        /**
-         * The base Sqids library automatically shuffles the provided alphabet.
-         * However, since this implementation uses a pre-shuffled alphabet,
-         * we override the default behavior and skip the re-shuffling.
-         */
-        $this->alphabet = $alphabet;
+    protected int $minLength;
+
+    /**
+     * @var string[]
+     */
+    protected array $blocklist;
+
+    protected bool $canonicalIds;
+
+    protected CustomSqids $sqids;
+
+    public function __construct(?string $seed = null)
+    {
+        $this->minLength = Config::minLength();
+        $this->blocklist = Config::blockList();
+        $this->canonicalIds = Config::canonicalIds();
+        $this->alphabet = app(Config::class)->shuffledAlphabet($seed);
     }
 
-    public static function createFromConfig(?string $seed = null): self
+    protected function sqids(): CustomSqids
     {
-        return new self(
-            alphabet: app(Config::class)->shuffledAlphabet($seed),
-            minLength: Config::minLength(),
-            blocklist: Config::blockList(),
+        return $this->sqids ??= new CustomSqids(
+            $this->alphabet,
+            $this->minLength,
+            $this->blocklist
         );
     }
 }

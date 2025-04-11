@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Istiak\Sqids\Support;
 
-use Istiak\Sqids\Sqids;
 use Random\Engine\Xoshiro256StarStar;
 use Random\Randomizer;
+use Sqids\Sqids;
 
 class Config
 {
