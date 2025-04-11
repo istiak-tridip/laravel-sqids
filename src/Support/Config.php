@@ -15,7 +15,7 @@ class Config
      */
     protected array $shuffleCache = [];
 
-    public function shuffleSeed(): string
+    public static function shuffleSeed(): string
     {
         return config()->string(
             key: 'sqids.shuffle_seed',
@@ -23,7 +23,7 @@ class Config
         );
     }
 
-    public function minLength(): int
+    public static function minLength(): int
     {
         return config()->integer(
             key: 'sqids.min_length',
@@ -31,7 +31,7 @@ class Config
         );
     }
 
-    public function canonicalIds(): bool
+    public static function canonicalIds(): bool
     {
         return config()->boolean(
             key: 'sqids.canonical_ids',
@@ -42,7 +42,7 @@ class Config
     /**
      * @return string[]
      */
-    public function blockList(): array
+    public static function blockList(): array
     {
         /** @var string[] */
         return config()->array(
@@ -51,7 +51,7 @@ class Config
         );
     }
 
-    public function alphabet(): string
+    public static function alphabet(): string
     {
         return config()->string(
             key: 'sqids.alphabet',
@@ -61,7 +61,7 @@ class Config
 
     public function shuffledAlphabet(?string $seed = null): string
     {
-        $seedHash = hash('sha256', ($seed ?? '').$this->shuffleSeed());
+        $seedHash = hash('sha256', ($seed ?? '').self::shuffleSeed());
 
         return $this->shuffleCache[$seedHash]
             ??= $this->shuffleAlphabetUsingRandomizer($seedHash);
@@ -73,6 +73,6 @@ class Config
             seed: (string) hex2bin($seedHash),
         ));
 
-        return $randomizer->shuffleBytes($this->alphabet());
+        return $randomizer->shuffleBytes(self::alphabet());
     }
 }

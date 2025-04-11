@@ -28,8 +28,8 @@ class Sqids extends BaseSqids
     {
         return new self(
             alphabet: app(Config::class)->shuffledAlphabet($seed),
-            minLength: app(Config::class)->minLength(),
-            blocklist: app(Config::class)->blockList(),
+            minLength: Config::minLength(),
+            blocklist: Config::blockList(),
         );
     }
 }
