@@ -12,18 +12,37 @@
     "require-dev": {
         "larastan/larastan": "^3.0",
         "laravel/pint": "^1.21",
-        "orchestra/testbench": "^10.2"
+        "orchestra/testbench": "^10.2",
+        "pestphp/pest": "^3.8",
+        "pestphp/pest-plugin-type-coverage": "^3.5"
     },
     "autoload": {
         "psr-4": {
             "Istiak\\Sqids\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "scripts": {
-        "fix:style": "pint"
+        "fix:style": "pint",
+        "test:style": "pint --test",
+        "test:types": "phpstan analyse --ansi",
+        "test:unit": "pest --colors=always --coverage --parallel",
+        "test": [
+            "@test:style",
+            "@test:types",
+            "@test:unit"
+        ]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {
@@ -32,6 +51,6 @@
             ]
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

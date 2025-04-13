@@ -6,6 +6,7 @@ parameters:
     paths:
         - src
         - config
+        - tests/Support/User.php
     configDirectories:
         - config
     checkOctaneCompatibility: true
