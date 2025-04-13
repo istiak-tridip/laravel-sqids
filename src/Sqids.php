@@ -29,7 +29,8 @@ class Sqids
         $this->minLength = Config::minLength();
         $this->blocklist = Config::blockList();
         $this->validateIds = Config::validateIds();
-        $this->alphabet = app(Config::class)->shuffledAlphabet($seed);
+
+        $this->alphabet = Config::shuffledAlphabet($seed);
     }
 
     public function encode(int $id): string

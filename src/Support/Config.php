@@ -13,7 +13,7 @@ class Config
     /**
      * @var array<string, string>
      */
-    protected array $shuffleCache = [];
+    protected static array $shuffleCache = [];
 
     public static function shuffleSeed(): string
     {
@@ -64,15 +64,15 @@ class Config
         $condition && config()->set('sqids.alphabet', '0123456789');
     }
 
-    public function shuffledAlphabet(?string $seed = null): string
+    public static function shuffledAlphabet(?string $seed = null): string
     {
         $seedHash = hash('sha256', ($seed ?? '').self::shuffleSeed());
 
-        return $this->shuffleCache[$seedHash]
-            ??= $this->shuffleAlphabetUsingRandomizer($seedHash);
+        return static::$shuffleCache[$seedHash]
+            ??= static::shuffleAlphabetUsingRandomizer($seedHash);
     }
 
-    protected function shuffleAlphabetUsingRandomizer(string $seedHash): string
+    protected static function shuffleAlphabetUsingRandomizer(string $seedHash): string
     {
         $randomizer = new Randomizer(new Xoshiro256StarStar(
             seed: (string) hex2bin($seedHash),
