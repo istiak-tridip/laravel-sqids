@@ -27,7 +27,7 @@ class Config
     {
         return config()->integer(
             key: 'sqids.min_length',
-            default: Sqids::DEFAULT_MIN_LENGTH
+            default: 10
         );
     }
 

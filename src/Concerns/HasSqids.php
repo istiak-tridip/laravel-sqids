@@ -39,15 +39,18 @@ trait HasSqids
     }
 
     /**
+     * @throws SqidsException
+     *
      * @noinspection MissingParameterTypeDeclarationInspection
      */
     public function resolveRouteBindingQuery($query, $value, $field = null): BuilderContract
     {
-        if ($field !== null && $field !== $this->getRouteKeyName()) {
-            return parent::resolveRouteBindingQuery($query, $value, $field);
+        if ($this->isSqidsRouteBinding($value, $field)) {
+            $field = $this->getKeyName();
+            $value = $this->sqids()->decode($value);
         }
 
-        return $query->whereSqid($value);
+        return parent::resolveRouteBindingQuery($query, $value, $field);
     }
 
     /**
@@ -94,7 +97,19 @@ trait HasSqids
         return $this->sqids()->encode($id);
     }
 
-    protected function sqids(): Sqids
+    /**
+     * @phpstan-assert-if-true string $value
+     */
+    protected function isSqidsRouteBinding(mixed $value, ?string $field): bool
+    {
+        if (! is_string($value)) {
+            return false;
+        }
+
+        return $field === null || $field === $this->getRouteKeyName();
+    }
+
+    public function sqids(): Sqids
     {
         return self::$sqids[$this::class]
             ??= new Sqids($this::class);
