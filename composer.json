@@ -30,7 +30,7 @@
         "fix:style": "pint",
         "test:style": "pint --test",
         "test:types": "phpstan analyse --ansi",
-        "test:unit": "pest --colors=always --coverage --parallel",
+        "test:unit": "pest --colors=always --parallel",
         "test": [
             "@test:style",
             "@test:types",

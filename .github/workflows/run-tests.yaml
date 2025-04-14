@@ -1,0 +1,50 @@
+name: run-tests
+
+on: [ 'push', 'pull_request' ]
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        strategy:
+            fail-fast: true
+            matrix:
+                php: [ 8.4, 8.3, 8.2 ]
+                laravel: [ 12.*, 11.* ]
+                include:
+                    -   laravel: 12.*
+                        testbench: 10.*
+                    -   laravel: 11.*
+                        testbench: 9.*
+
+        name: PHP v${{ matrix.php }} - Laravel v${{ matrix.laravel }}
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    coverage: xdebug
+
+            -   name: Setup problem matchers
+                run: |
+                    echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+                    echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+            -   name: Install dependencies
+                uses: "ramsey/composer-install@v3"
+
+            -   name: Require Laravel v${{ matrix.laravel }}
+                run: |
+                    composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+                    composer update --prefer-dist --no-interaction
+
+            -   name: Execute scripts
+                run: composer run test
