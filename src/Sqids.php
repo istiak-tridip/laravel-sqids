@@ -56,6 +56,15 @@ class Sqids
         return $decoded;
     }
 
+    public function decodeOrNull(string $id): ?int
+    {
+        try {
+            return $this->decode($id);
+        } catch (SqidsException) {
+            return null;
+        }
+    }
+
     protected function sqids(): CustomSqids
     {
         return $this->sqids ??= new CustomSqids(

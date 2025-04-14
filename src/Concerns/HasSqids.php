@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Istiak\Sqids\Exceptions\SqidsException;
 use Istiak\Sqids\Sqids;
+use Istiak\Sqids\Support\Config;
 
 trait HasSqids
 {
@@ -39,15 +40,13 @@ trait HasSqids
     }
 
     /**
-     * @throws SqidsException
-     *
      * @noinspection MissingParameterTypeDeclarationInspection
      */
     public function resolveRouteBindingQuery($query, $value, $field = null): BuilderContract
     {
         if ($this->isSqidsRouteBinding($value, $field)) {
             $field = $this->getKeyName();
-            $value = $this->sqids()->decode($value);
+            $value = $this->sqids()->decodeOrNull($value);
         }
 
         return parent::resolveRouteBindingQuery($query, $value, $field);
@@ -55,12 +54,10 @@ trait HasSqids
 
     /**
      * @param  Builder<static>  $query
-     *
-     * @throws SqidsException
      */
     public function scopeWhereSqid(Builder $query, string $sqid): void
     {
-        $id = $this->sqids()->decode($sqid);
+        $id = $this->sqids()->decodeOrNull($sqid);
 
         $query->whereKey($id);
     }
@@ -68,14 +65,12 @@ trait HasSqids
     /**
      * @param  Builder<static>  $query
      * @param  Arrayable<array-key,string>|iterable<array-key,string>  $sqids
-     *
-     * @throws SqidsException
      */
     public function scopeWhereSqidIn(Builder $query, Arrayable|iterable $sqids): void
     {
         $ids = collect($sqids)
             // @phpstan-ignore-next-line
-            ->map(fn (string $sqid) => $this->sqids()->decode($sqid));
+            ->map(fn (string $sqid) => $this->sqids()->decodeOrNull($sqid));
 
         $query->whereKey($ids);
     }
@@ -102,7 +97,7 @@ trait HasSqids
      */
     protected function isSqidsRouteBinding(mixed $value, ?string $field): bool
     {
-        if (! is_string($value)) {
+        if (! is_string($value) || mb_strtolower($value) < Config::minLength()) {
             return false;
         }
 
