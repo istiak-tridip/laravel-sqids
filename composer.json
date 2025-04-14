@@ -34,7 +34,8 @@
         "test": [
             "@test:style",
             "@test:types",
-            "@test:unit"
+            "@test:unit",
+            "@test:unit -- --type-coverage --min=100"
         ]
     },
     "config": {
