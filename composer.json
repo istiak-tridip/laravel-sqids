@@ -1,6 +1,13 @@
 {
     "name": "istiak-tridip/laravel-sqids",
     "homepage": "https://github.com/istiak-tridip/laravel-sqids",
+    "description": "Laravel wrapper for Sqids to obscure database IDs with unique, URL-safe identifiers.",
+    "keywords": [
+        "php",
+        "laravel",
+        "sqids",
+        "laravel-sqids"
+    ],
     "license": "MIT",
     "type": "library",
     "require": {
