@@ -1,5 +1,10 @@
 # 🦑 Laravel Sqids
 
+<a href="https://github.com/istiak-tridip/laravel-sqids/actions"><img alt="Test Status" src="https://img.shields.io/github/actions/workflow/status/istiak-tridip/laravel-sqids/run-tests.yaml?label=tests"></a>
+<a href="https://packagist.org/packages/istiak-tridip/laravel-sqids"><img src="https://img.shields.io/packagist/dt/istiak-tridip/laravel-sqids" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/istiak-tridip/laravel-sqids"><img src="https://img.shields.io/packagist/v/istiak-tridip/laravel-sqids" alt="Latest Version"></a>
+<a href="https://packagist.org/packages/istiak-tridip/laravel-sqids"><img src="https://img.shields.io/packagist/l/istiak-tridip/laravel-sqids" alt="License"></a>
+
 **Laravel Sqids** is a lightweight wrapper around [Sqids](https://sqids.org/) (pronounced "squids"), an open-source library for generating short, URL-safe, non-sequential, and unique identifiers from numbers.
 
 This package simplifies the integration of Sqids into your Laravel application, providing a clean and efficient way to obscure raw database IDs in URLs, forms, or other scenarios where unique, aesthetically pleasing
