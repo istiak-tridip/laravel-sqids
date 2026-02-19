@@ -97,7 +97,7 @@ trait HasSqids
      */
     protected function isSqidsRouteBinding(mixed $value, ?string $field): bool
     {
-        if (! is_string($value) || mb_strtolower($value) < Config::minLength()) {
+        if (! is_string($value) || mb_strlen($value) < Config::minLength()) {
             return false;
         }
 
