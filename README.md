@@ -29,7 +29,7 @@ composer require istiak-tridip/laravel-sqids
 ```
 
 > [!IMPORTANT]
-> This package requires **PHP 8.2 or higher** and is compatible with **Laravel 11.x and 12.x**.
+> This package requires **PHP 8.3 or higher** and is compatible with **Laravel 11.x, 12.x and 13.x**.
 
 If you need to customize the default configuration, publish the config file:
 
