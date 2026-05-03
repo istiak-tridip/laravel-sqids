@@ -4,6 +4,7 @@
 <a href="https://packagist.org/packages/istiak-tridip/laravel-sqids"><img src="https://img.shields.io/packagist/dt/istiak-tridip/laravel-sqids" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/istiak-tridip/laravel-sqids"><img src="https://img.shields.io/packagist/v/istiak-tridip/laravel-sqids" alt="Latest Version"></a>
 <a href="https://packagist.org/packages/istiak-tridip/laravel-sqids"><img src="https://img.shields.io/packagist/l/istiak-tridip/laravel-sqids" alt="License"></a>
+<a href="https://packagist.org/packages/istiak-tridip/laravel-sqids"><img src="https://badge.laravel.cloud/badge/istiak-tridip/laravel-sqids" alt="Laravel Compatibility"></a>
 
 **Laravel Sqids** is a lightweight wrapper around [Sqids](https://sqids.org/) (pronounced "squids"), an open-source library for generating short, URL-safe, non-sequential, and unique identifiers from numbers.
 
